@@ -1,0 +1,65 @@
+body {
+
+	font-family: helvetica, sans-serif;
+}
+
+
+h1 {
+
+	font-family: 'Sigmar One', cursive;
+	font-size: 75px;
+	position: relative;
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+
+h2 {
+
+	text-align: center;
+	margin: 0 0 70px 0;
+}
+
+h3 {
+	font-size: 25px;
+	text-align: center;
+}
+
+ul {
+
+
+}
+
+li {
+	display: inline;
+	padding: 0 100px;
+}
+
+#mainImage {
+
+	max-width: 100%;
+	background-size: cover;
+	padding: 0 50px;
+
+
+
+}
+
+#comment {
+
+	width: 1000px;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    font-size: 16px;
+    margin: 20px 0 20px 200px;
+	
+}
+
+.reserv {
+
+	display: inline;
+}

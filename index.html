@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Monk's Cafe</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Sigmar+One" rel="stylesheet">
+	<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+	<!-- Basic page structure -->
+	<h1>Monk’s Cafe</h1>
+
+	<h2>“The Coffee Shop”</h2>
+		<ul>
+		<li>Reservations</li>
+		<li>Come Dine with Us</li>
+		<li>Customer Reviews</li>
+		<li>Contact Us</li>
+	</ul>
+
+	<img id="mainImage" src="images/toms-restaurant.jpg">
+	
+	<div class="reservations">
+		<h3>Reservations</h3>
+		
+		<div id="makeReserv" class="reserv">
+		<h4>Make Reservations</h4>
+			
+		<form>
+    		<label>Name: </label>
+    			<input id="name" type="text">
+    		<label>Choose a date: </label>
+    			<input id="date" type="date" value="2017-12-11">
+    		<label>Reservation time: </label>
+    			<input id="time" type="time"><br>
+    		<button>Confirm Reservation</button>
+			</form>
+		</div>
+
+		<div id="ExistingReserv" class="reserv">
+		<h4>Existing Reservations</h4>
+			<table>
+				<thead>
+					<th>Name</th>
+					<th>Day</th>
+				</thead>
+				<tbody>
+					<!-- Add reservation data here -->
+				</tbody>
+			</table>
+			<button>Cancel Reservation</button>
+		</div>
+
+	</div>
+	
+	<h3>Come Dine with Us</h3>
+	<div id="map">
+	</div>
+	
+	<div>
+		<h3>Customer Reviews</h3>
+
+		<form id="customerReview" class="cr">
+			<input id="comment" type="text" placeholder="Tell us your experience">
+		</form>
+
+
+		<p>“Big lettuce, big carrots, tomatoes like volleyballs.”
+			— Jerry Seinfeld, on The BIG Salad</p>
+	</div>
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+  <script src="js/handlebars-v4.0.5.js"></script>
+ <!-- JQuery -->
+ <script src="js/jquery-3.0.0.min.js"></script>
+ <!-- Main js file -->
+ <script src="js/main.js"></script>
+ <!-- google maps -->
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc7XPFp4dN6zUTNZNYBiL4xMADjKdmbKs&callback=initMap" async defer></script>
+
+</body>
+</html>
