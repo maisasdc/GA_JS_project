@@ -13,7 +13,126 @@
   var database = firebase.database();
 
 
-//Initialize Map in Come Dine with Us session
+//RESERVATION 
+//Make Reservation
+	
+	var reservationData = {};
+	//User is not able to select the day before today
+	function calendar(){
+
+	
+	var date = document.getElementById('date');
+
+	if(!date) {
+		return;
+	}
+
+	var today = new Date().toISOString().split('T')[0];
+
+	//return today;
+	date.setAttribute('min', today);
+
+}
+
+calendar();
+
+
+	// set the time when an option is clicked on
+	$('.reservation-time li').click(function() {
+
+		reservationData.time = $(this).text();
+	});
+
+	// when clicked, the name data should be set
+	// and all data should be sent to your database
+
+	$('.form_reservation').on('submit', function(event) {
+
+
+			//prevent the page to reload
+			event.preventDefault();
+
+			//get name from input
+			reservationData.name = $('#name').val();
+			reservationData.date = new Date($('#date').val());
+
+			//Clear the fields 
+			$('#name').val('');
+			$('#date').val('');
+			$('.reservation-time li').val('');
+
+
+			var reservationReference = database.ref('reservation');
+
+			reservationReference.push({
+
+				name: reservationData.name,
+				date: reservationData.date.toString(),
+				time: reservationData.time
+
+			});
+
+	});
+
+	// on initial load and addition of each reservation update the view
+	database.ref('reservation').on('child_added', function(snapshot){
+
+		//Grab element to hook 
+		var reservationList = $('.reservation-list');
+		// get data from database
+		var reservations = snapshot.val();
+
+		//Updating the time format from database to Dec 12 2017
+		var formatDate = reservations.date;
+		var newDate = formatDate.slice(4, 15);
+
+		var reservationUpdated = {
+
+			name: reservations.name,
+			date: newDate,
+			time: reservations.time
+		};
+
+		// get your template from your script tag
+		var source = $("#reservation-template").html();
+		// compile template
+	    var template = Handlebars.compile(source);
+	    // pass data to template to be evaluated within handlebars
+	    // as the template is created
+	    var reservationTemplate = template(reservationUpdated);
+		// append created templated
+  		reservationList.append(reservationTemplate);	
+
+	});
+
+	//Delete Reservation
+
+	/*$(document).ready(function () {
+
+    var ckbox = $('#cancelReservation');
+
+	$('#reservation-button').on('click', function(e){
+
+
+			//if(document.getElementById('cancelReservation').checked)
+			if (ckbox.is(':checked')) {
+
+				console.log("Thanks for contacting us");
+
+		} else {
+
+				console.log("Please, select a reservation to cancel");
+
+		}
+
+
+	});
+
+}); */
+
+// COME DINE WITH US 
+
+//Initialize Map 
 
 function initMap(){
 
@@ -31,6 +150,8 @@ var marker = new google.maps.Marker({
 });
 
 	}
+
+	// CUSTOMER REVIEW
 
 	//List Customer Review and keep them in the database
 	$('#customerReview').on('submit', function(event) {
@@ -78,7 +199,6 @@ var marker = new google.maps.Marker({
 
 					name: allComments[item].name,
 					comment: allComments[item].comment,
-					likes: allComments[item].likes,
 					commentId: item
 				};
 
@@ -108,6 +228,43 @@ var marker = new google.maps.Marker({
 
 	getComments();
 
+	// CONTACT US
+	$('#contact_form').on('submit', function(e){
 
+		e.preventDefault();
+
+		// Get data from Contact Us form
+		user_name = $('#contact_name').val();
+		message = $('#contact_message').val();
+		email = $('#contact_email').val();
+
+		if(user_name.length == 0 || message.length == 0 || email.length == 0) {
+
+			window.alert("Please, enter with information in hte blank field");
+			//$('#result').html("Please, enter with information in hte blank field");
+
+		} else {
+
+		// Clear inputs
+		$('#contact_name').val('');
+		$('#contact_message').val('');
+		$('#contact_email').val('');
+
+
+		window.confirm("Thanks for contacting us " + user_name + ". We will reply your request in 3 work days.");
+
+		//Create a section for user data in database
+		var contactReference = database.ref('contact_form');
+
+		//save data to the contact form
+		contactReference.push({
+
+			name: user_name,
+			message: message,
+			userEmail: email
+		});
+
+		}
+	});
 
 

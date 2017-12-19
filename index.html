@@ -5,11 +5,23 @@
 	<meta charset="utf-8">
 	<title>Monk's Cafe</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Sigmar+One" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
+
+	<!-- template for reservation-list -->
+	<script id="reservation-template" type="text/x-handlebars-template">
+		<!--<input type="checkbox" id="cancelReservation" class="cancelCheck"> -->
+		<tr>
+			<td>{{name}}</td>
+			<td>{{date}}</td>
+			<td>{{time}}</td>
+		</tr>
+		<!--</input> -->
+	</script>
+
 	<!-- Basic page structure -->
 	<div id="logo">
 		<h1>Tom's Restaurant</h1>
@@ -32,45 +44,65 @@
 	<img id="mainImage" src="images/toms-restaurant.jpg">
 <div id="content" class="main_content">
 	
+	<!-- Reservation List -->
 	<div class="reservations" id="main_reservation">
 		<header class="main_header">
 		<h3 class="entry_reservation">Reservations</h3>
 		
 		<div id="makeReserv" class="reserv">
-			<h4 class="details_reservation">Make Reservations</h4>
+			<h4 class="details_reservation" id="mk">Make Reservations</h4>
 				<div class="form_makeReservation">
 			<form class="form_reservation">
 	    		<label class="labelReservation">Name: </label>
-	    			<input id="name" type="text" class="inputReservation"><br>
+	    			<input id="name" type="text" class="input_Reservation"><br>
+	    		<div id="label">
 	    		<label class="labelReservation">Choose a date: </label>
-	    			<input id="date" type="date" value="2017-12-11" class="inputReservation"><br>
-	    		<label class="labelReservation">Reservation time: </label>
-	    			<input id="time" type="time" class="inputReservation"><br>
-	    		<button>Confirm Reservation</button>
+	    			<input id="date" type="date" class="inputReservation"><br>
+	    		</div>
+	    		<div class="form-group">
+		    			<div id="drop_down">
+		    			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+		    				Click Time
+		    				<span class="caret"></span>
+		    			</button>
+		    			<ul class="dropdown-menu reservation-time">
+		    				<li><a>5:00PM</a></li>
+		    				<li><a>6:00PM</a></li>
+		    				<li><a>7:00PM</a></li>
+		    				<li><a>8:00PM</a></li>
+		    				<li><a>9:00PM</a></li>
+		    				<li><a>9:30PM</a></li>
+		    			</ul>
+		    			</div>
+		    	</div>
+
+	    		<button class="btn btn-default reservation-button" id="make_reservation_bt">Confirm Reservation</button>
 				</form>
 				</div>
 			
 		</div>
 
 		<div id="ExistingReserv" class="reserv">
+		<div id="er">
 		<h4 class="details_reservation">Existing Reservations</h4>
+	    </div>
 		<div class="form_existingReservation">
 			<table class="table_reservation">
 				<thead>
 					<th>Name</th>
 					<th>Day</th>
+					<th>Time</th>
 				</thead>
-				<tbody>
-					<!-- Add reservation data here -->
-				</tbody>
+				<tbody class="reservation-list"></tbody>
 			</table>
-			<button>Cancel Reservation</button>
+			<!--<button class="btn btn-default reservation-button" id="cancel_reservations">Cancel Reservation</button>-->
 		</div>
 		</div>
 		</header>
 
 	</div>	
 	
+	<!-- Come Dine with Us - Map -->
 	<div class="map_class" id="main_map">
 		<header id="main_header">
 		<h3>Come Dine with Us</h3>
@@ -80,7 +112,7 @@
 	</div>
 		
 	
-	
+	<!-- Customer Review form -->
 	<div class="review" id="main_review">
 		<header class="main_header">
 		<h3 class="customer_reviews">Customer Reviews</h3>
@@ -94,7 +126,7 @@
 		</form>
 			
 		<div id="reviews_answers" class="reviewsAnswers">
-			<p>Reviews</p>
+			<p id="p_reiew">Reviews</p>
 			<ul class="list_coments">
 				
 			</ul>
@@ -106,24 +138,26 @@
 	<!-- Handlebar Templates to show comments -->
 	<script id="comment-template" type="text/x-handlebars-template">
 		<li data-id="{{commentId}}">
-			<p>{{comment}} - {{name}}</p>
+			<h4>{{name}}</h4><br>
+			<p>{{comment}}</p>
 
 		</li>
 	</script>
 
+	<!-- Contact Us form -->
 	<div class="contact" id="main_contact">
 		<header class="main_header">
 			<h3 class="contact_us">Contact Us</h3>
+			<form id="contact_form">
 			<label>Name: </label><br>
-			<input type="text" id="name"><br>
+			<input type="text" id="contact_name"><br>
 			<label>Leave your message: </label><br>
-			<input type="text" id="message"><br>
+			<input type="text" id="contact_message"><br>
 			<label>Email: </label><br>
-			<input type="email" id="email"><br>
+			<input type="email" id="contact_email"><br>
 			<button type="submit" id="submit">Submit</button>
+		</form>
 		</header>
-		
-
 	</div>
 </div>
 

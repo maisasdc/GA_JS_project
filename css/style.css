@@ -38,9 +38,12 @@ h3 {
 
 #mainImage {
 
-	max-width: 80%;
+	max-width: 100%;
+	position: 100%;
 	background-size: cover;
+	background-position: center;
 	padding-top: 20px;
+
 	
 }
 
@@ -69,6 +72,20 @@ h3 {
 	
 }
 
+.details_reservation, #mk{
+
+	width: 325px;
+	margin: auto;
+}
+
+#er{
+
+	width: 325px;
+
+
+}
+
+
 #makeReserv, .form_makeReservation {
 
 	width: 300px;
@@ -76,6 +93,25 @@ h3 {
 
 }
 
+#name {
+
+	padding: 6px;
+	width: 220px;
+	margin-bottom: 15px;
+
+}
+
+#date {
+
+	width: 120px;
+	margin-bottom: 15px;
+	
+}
+
+#label {
+
+	margin-right: 80px;
+}
 
 
 .form_makeReservation, .form_existingReservation {
@@ -85,6 +121,7 @@ padding: 20px;
 
 }
 
+
 #ExistingReserv, .form_existingReservation {
 
 	width: 300px;
@@ -92,12 +129,41 @@ padding: 20px;
 
 }
 
+.reservation-button {
+
+	margin: 10px auto;
+	background-color: #242424;
+	color: #f9fafc;
+	width: 150px;
+	height: 30px;
+	font-size: 12px;
+
+}
+
+table tbody tr td{
+
+	font-size: 12px;
+	margin: 0 40px 10px 40px;
+	padding: 8px;
+	border-top: 1px solid #ddd;
+}
+
+/*.cancelCheck {
+
+	float: left;
+
+} */
+/*#td{
+
+	float: right;
+} */
+
 
 /* Come Dine with Us section - Map */
 .map_class, #map{
 
 	min-height: 40vh;
-	width: 700px;
+	width: 600px;
 	margin-top: 30px;
 
 }
@@ -105,6 +171,7 @@ padding: 20px;
 #main_map {
 
 	clear: both;
+	margin: 100px;
 }
 
 /*Customer review section */
@@ -132,7 +199,8 @@ padding: 20px;
     background-color: #f8f8f8;
     resize: none;
     font-size: 14px;
-    margin: 0 290px 10px 0;
+    margin: 0 270px 10px 0;
+    padding: 10px;
 
 }
 
@@ -141,7 +209,7 @@ padding: 20px;
 	width: 700px;
 	border: 1px solid #ccc;
 	font-size: 14px;
-	margin: 20px 1000px 10px 50px;
+	margin: 20px 1000px 100px 50px;
 
 }
 
@@ -149,20 +217,43 @@ padding: 20px;
 
 	text-align: left;
 	padding-left: 15px;
+	
 }
+
+.review, #p_reiew {
+
+	border: 1px solid #ccc;
+
+
+}
+
+.main_content h4 {
+
+	font-size: 20px;
+	text-align: left;
+	margin-bottom: 0;
+}
+
+.reviewsAnswers ul {
+
+	list-style-type: none;
+	padding-bottom: 5px;
+}
+
 
 .reserv {
 
 	display: inline;
 }
 
-.fa {
-	float: right;
-	display: block;
-	color: #888;
-	margin-top: 3px;
-	margin-left: 14px;
-	cursor: pointer;
+.review button {
+
+	width: 70px;
+	font-size: 12px;
+	background-color: red;
+	color: white;
+	padding: 10px;
+	margin: 10px 0 0 600px;
 }
 
 /* Label Contact Us section*/
@@ -188,7 +279,7 @@ font-size: 12px;
 
 }
 
-.contact #submit {
+.contact #submit{
 
 	margin-bottom: 20px;
 	background-color: #242424;
