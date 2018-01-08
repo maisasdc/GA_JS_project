@@ -5,8 +5,11 @@
 	<meta charset="utf-8">
 	<title>Monk's Cafe</title>
 
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="css/style.css">
+	
 
 </head>
 <body>
@@ -41,63 +44,62 @@
 		</div>
 
 
-	<img id="mainImage" src="images/toms-restaurant.jpg">
+	<img class="img-responsive" id="mainImage" src="images/toms-restaurant.jpg">
 <div id="content" class="main_content">
 	
 	<!-- Reservation List -->
 	<div class="reservations" id="main_reservation">
 		<header class="main_header">
 		<h3 class="entry_reservation">Reservations</h3>
-		
-		<div id="makeReserv" class="reserv">
-			<h4 class="details_reservation" id="mk">Make Reservations</h4>
-				<div class="form_makeReservation">
-			<form class="form_reservation">
-	    		<label class="labelReservation">Name: </label>
-	    			<input id="name" type="text" class="input_Reservation"><br>
-	    		<div id="label">
-	    		<label class="labelReservation">Choose a date: </label>
-	    			<input id="date" type="date" class="inputReservation"><br>
-	    		</div>
-	    		<div class="form-group">
-		    			<div id="drop_down">
-		    			<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-		    				Click Time
-		    				<span class="caret"></span>
-		    			</button>
-		    			<ul class="dropdown-menu reservation-time">
-		    				<li><a>5:00PM</a></li>
-		    				<li><a>6:00PM</a></li>
-		    				<li><a>7:00PM</a></li>
-		    				<li><a>8:00PM</a></li>
-		    				<li><a>9:00PM</a></li>
-		    				<li><a>9:30PM</a></li>
-		    			</ul>
-		    			</div>
-		    	</div>
-
-	    		<button class="btn btn-default reservation-button" id="make_reservation_bt">Confirm Reservation</button>
-				</form>
-				</div>
+			<div class="row">
+				<div class="col-md-6">
+				<h4 class="details_reservation_mk box">Make Reservations</h4>
 			
-		</div>
+					<div class="reserv box">
+					<form class="form_reservation">
+			    		<label class="labelReservation">Name: </label>
+			    			<input id="name" type="text" class="input_Reservation"><br>
+			    		<div id="label">
+			    		<label class="labelReservation">Choose a date: </label>
+			    			<input id="date" type="date" class="inputReservation"><br>
+			    		</div>
+			    		<div class="form-group"> 
+				    			<div id="drop_down">
+				    			<label class="labelReservation">Choose time: </label>
+				    			
+				    			<select class="dropdown-menu reservation-time" id="time">
+				    				<option disabled selected value></option>
+				    				<option>5:00PM</option>
+				    				<option>6:00PM</option>
+				    				<option>7:00PM</option>
+				    				<option>8:00PM</option>
+				    				<option>9:00PM</option>
+				    				<option>9:30PM</option>
+				    			</select>
+				    			</div>
+				    		 </div> 
 
-		<div id="ExistingReserv" class="reserv">
-		<div id="er">
-		<h4 class="details_reservation">Existing Reservations</h4>
-	    </div>
-		<div class="form_existingReservation">
-			<table class="table_reservation">
-				<thead>
-					<th>Name</th>
-					<th>Day</th>
-					<th>Time</th>
-				</thead>
-				<tbody class="reservation-list"></tbody>
-			</table>
-			<!--<button class="btn btn-default reservation-button" id="cancel_reservations">Cancel Reservation</button>-->
-		</div>
-		</div>
+			    		<button class="btn btn-default reservation-button" id="make_reservation_bt">Confirm Reservation</button>
+						</form>
+			
+						</div>
+					</div>
+				<div class="col-md-6">
+					<h4 class="details_reservation_ex box">Existing Reservations</h4>
+				    
+					<div class="form_existingReservation box">
+						<table class="table_reservation table-striped">
+							<thead>
+								<th>Name</th>
+								<th>Day</th>
+								<th>Time</th>
+							</thead>
+							<tbody class="reservation-list"></tbody>
+						</table>
+						<!--<button class="btn btn-default reservation-button" id="cancel_reservations">Cancel Reservation</button>-->
+					</div>
+				</div>
+			</div>	
 		</header>
 
 	</div>	
@@ -120,9 +122,15 @@
 		
 		
 		<form id="customerReview" class="cr">
+		<div class="row">
+			<div class="col-md-12">
 			<input type="text" id="name_reviewer" placeholder="Name">
+			</div>
+		 	<div class="col-md-12">
 			<input id="comment" type="text" placeholder="Tell us your experience"><br>
+			</div>
 			<button type="submit" id="comment_button">Submit</button>
+		</div>
 		</form>
 			
 		<div id="reviews_answers" class="reviewsAnswers">
@@ -155,7 +163,7 @@
 			<input type="text" id="contact_message"><br>
 			<label>Email: </label><br>
 			<input type="email" id="contact_email"><br>
-			<button type="submit" id="submit">Submit</button>
+			<button type="submit" id="submit" class="btn btn-primary">Submit</button>
 		</form>
 		</header>
 	</div>
@@ -170,6 +178,8 @@
  <script src="js/main.js"></script>
  <!-- google maps -->
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDbt1M_Y1NT5NIZ27O1y0L-PXT5-bEIjs&callback=initMap" async defer></script>
+ <!-- Latest compiled and minified CSS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
 </body>
 </html>

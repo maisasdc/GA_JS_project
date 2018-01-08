@@ -2,8 +2,6 @@ body {
 
 	font-family: helvetica, sans-serif;
 	text-align: center;
-	margin: 0 auto; 
-	max-width: 800px;
 	background-color: #ebeef3;
 
 }
@@ -36,7 +34,7 @@ h3 {
 	padding: 20px;
 }
 
-#mainImage {
+/* #mainImage {
 
 	max-width: 100%;
 	position: 100%;
@@ -45,9 +43,16 @@ h3 {
 	padding-top: 20px;
 
 	
-}
+} /*
 
 /* Reservation section */
+
+.box {
+	border: 2px solid #ccc;
+	padding: 10px;
+	margin: 10px;
+
+}
 
 .reserv label {
 
@@ -58,40 +63,16 @@ h3 {
 /* Wrap <div> */
 .reservation {
 
-	width: 500px;
 	font-size: 12px;
 
 }
 
 /* Header of Make Reservation and Existing Reservation*/
-.details_reservation {
-
-	background-color: #ffff;
-	padding: 8px;
-	border: 1px solid #ccc;
-	
+.details_reservation_mk.reserv {
+	padding: 20px;
+	margin: -15px;
 }
 
-.details_reservation, #mk{
-
-	width: 325px;
-	margin: auto;
-}
-
-#er{
-
-	width: 325px;
-
-
-}
-
-
-#makeReserv, .form_makeReservation {
-
-	width: 300px;
-	float: left;
-
-}
 
 #name {
 
@@ -114,21 +95,6 @@ h3 {
 }
 
 
-.form_makeReservation, .form_existingReservation {
-
-border: 1px solid #ccc;
-padding: 20px;
-
-}
-
-
-#ExistingReserv, .form_existingReservation {
-
-	width: 300px;
-	float: right;
-
-}
-
 .reservation-button {
 
 	margin: 10px auto;
@@ -140,22 +106,12 @@ padding: 20px;
 
 }
 
-table tbody tr td{
+/* table tbody tr td{
 
 	font-size: 12px;
 	margin: 0 40px 10px 40px;
 	padding: 8px;
 	border-top: 1px solid #ddd;
-}
-
-/*.cancelCheck {
-
-	float: left;
-
-} */
-/*#td{
-
-	float: right;
 } */
 
 
@@ -199,8 +155,8 @@ table tbody tr td{
     background-color: #f8f8f8;
     resize: none;
     font-size: 14px;
-    margin: 0 270px 10px 0;
-    padding: 10px;
+    /* margin: 0 270px 10px 0;
+    padding: 10px; */
 
 }
 
@@ -209,7 +165,7 @@ table tbody tr td{
 	width: 700px;
 	border: 1px solid #ccc;
 	font-size: 14px;
-	margin: 20px 1000px 100px 50px;
+	/* margin: 20px 1000px 100px 50px; */
 
 }
 
@@ -227,12 +183,12 @@ table tbody tr td{
 
 }
 
-.main_content h4 {
+/* .main_content h4 {
 
 	font-size: 20px;
 	text-align: left;
 	margin-bottom: 0;
-}
+} */
 
 .reviewsAnswers ul {
 
@@ -240,11 +196,6 @@ table tbody tr td{
 	padding-bottom: 5px;
 }
 
-
-.reserv {
-
-	display: inline;
-}
 
 .review button {
 
@@ -278,7 +229,7 @@ font-size: 12px;
 	height: 200px;
 
 }
-
+/*
 .contact #submit{
 
 	margin-bottom: 20px;
@@ -286,4 +237,4 @@ font-size: 12px;
 	color: #f9fafc;
 	width: 100px;
 	height: 30px;
-}
+} */

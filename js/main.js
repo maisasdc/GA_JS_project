@@ -37,14 +37,8 @@
 calendar();
 
 
-	// set the time when an option is clicked on
-	$('.reservation-time li').click(function() {
-
-		reservationData.time = $(this).text();
-	});
-
 	// when clicked, the name data should be set
-	// and all data should be sent to your database
+	// and all data should be sent to your database 
 
 	$('.form_reservation').on('submit', function(event) {
 
@@ -54,12 +48,14 @@ calendar();
 
 			//get name from input
 			reservationData.name = $('#name').val();
+			reservationData.time = $('#time option:selected').text();
 			reservationData.date = new Date($('#date').val());
+
 
 			//Clear the fields 
 			$('#name').val('');
 			$('#date').val('');
-			$('.reservation-time li').val('');
+			$('.reservation-time option').val('');
 
 
 			var reservationReference = database.ref('reservation');
