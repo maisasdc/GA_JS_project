@@ -17,6 +17,7 @@
 //Make Reservation
 	
 	var reservationData = {};
+	
 	//User is not able to select the day before today
 	function calendar(){
 
@@ -36,6 +37,22 @@
 
 calendar();
 
+	//Select Reservation time
+	//$('.dropdown-menu a').on('click', function() {
+
+	//	$('#selected').text($(this).text());
+	//});
+	$('dropdown-menu li a').on('click', function(){
+
+		$('.selectedLi').removeClass('selectedLi');
+
+		$(this).addClass('selectedLi');
+
+		var selOption = $(this).text();
+		$(this).parents('.btn').find('.dropdown-toggle').html(selOption+
+      ' <span class="caret"></span>');
+	})
+
 
 	// when clicked, the name data should be set
 	// and all data should be sent to your database 
@@ -48,15 +65,17 @@ calendar();
 
 			//get name from input
 			reservationData.name = $('#name').val();
-			reservationData.time = $('#time option:selected').text();
+			//reservationData.time = $('#time option:selected').text();
+			reservationData.time = $('.dropdown-menu li a.selectedLi').text();
 			reservationData.date = new Date($('#date').val());
 
+			console.log(reservationData.time);
 
 			//Clear the fields 
 			$('#name').val('');
 			$('#date').val('');
-			$('.reservation-time option').val('');
-
+			$('#time').val('');
+			//$('.reservation-time option').val('');time
 
 			var reservationReference = database.ref('reservation');
 
@@ -78,6 +97,8 @@ calendar();
 		// get data from database
 		var reservations = snapshot.val();
 
+		var test = [];
+
 		//Updating the time format from database to Dec 12 2017
 		var formatDate = reservations.date;
 		var newDate = formatDate.slice(4, 15);
@@ -97,34 +118,40 @@ calendar();
 	    // as the template is created
 	    var reservationTemplate = template(reservationUpdated);
 		// append created templated
-  		reservationList.append(reservationTemplate);	
-
-	});
-
-	//Delete Reservation
-
-	/*$(document).ready(function () {
-
-    var ckbox = $('#cancelReservation');
-
-	$('#reservation-button').on('click', function(e){
-
-
-			//if(document.getElementById('cancelReservation').checked)
-			if (ckbox.is(':checked')) {
-
-				console.log("Thanks for contacting us");
-
-		} else {
-
-				console.log("Please, select a reservation to cancel");
-
-		}
+  		reservationList.append(reservationTemplate);
+  		
+  		//test.push(reservationTemplate);
+  		
+  		
+  		// remove all list items from DOM before appending table items	
+  		//$('.reservation-list').empty();
+  		// append each reservation to the list of reservation in the DOM
+  		//for(var i in test){
+  		//	$('.reservation-list').append(test[i]);
+  		//}
 
 
 	});
 
-}); */
+	//Delete Reservation -- FUNCTION NOT WORKING
+
+	$('.reservation-list').on('click', '.delete', function(e) {
+
+
+		// Get the ID for the comment we want to update
+		
+		var id = $(e.target).parent().data('id');
+		console.log(id);
+		// find comment whose objectId is equal to the id we're searching with
+		var commentReference = database.ref('reservation/' + id)
+
+		// Use remove method to remove the reservation from the database
+		commentReference.remove()
+
+	});
+
+
+
 
 // COME DINE WITH US 
 
@@ -173,7 +200,7 @@ var marker = new google.maps.Marker({
 		commentsReference.push({
 			name: userName,
 			comment: userComment,
-			likes: 0
+		
 		});
 	});
 
@@ -224,8 +251,8 @@ var marker = new google.maps.Marker({
 
 	getComments();
 
-	// CONTACT US
-	$('#contact_form').on('submit', function(e){
+	// CONTACT US Section
+		$('#contact_form').on('submit', function(e){
 
 		e.preventDefault();
 

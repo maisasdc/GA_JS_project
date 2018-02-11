@@ -2,70 +2,114 @@ body {
 
 	font-family: helvetica, sans-serif;
 	text-align: center;
-	background-color: #ebeef3;
 
 }
 
-
-h1 {
+/* Header of the page */
+.main-header h1 {
 
 	font-family: 'Sigmar One', cursive;
+	color: #971765;
 	font-size: 75px;
 	position: relative;
-	text-align: center;
-	margin: 10px 0 10px 0;
+	margin: 50px 0;
 }
 
-h2 {
+.main-header h3 {
 
-	text-align: center;
-	margin: 0 0 70px 0;
+	margin-bottom: 70px;
 }
 
-h3 {
-	font-size: 25px;
-	text-align: center;
-}
 
-/* Main Menu section */
+/* Navbar section */
 
-#navigation_menu li {
-	display: inline;
-	padding: 20px;
-}
+.topnav {
 
-/* #mainImage {
+	background: #E3DFE2;
+	/*box-shadow: 0px 1px 2px #2d2c2d; */
+	border: 2px groove #cbc4c9;
+	position: relative;
+	margin-bottom: 0;
 
-	max-width: 100%;
-	position: 100%;
-	background-size: cover;
-	background-position: center;
-	padding-top: 20px;
+	}
 
-	
-} /*
+	.topnav ul {
+
+	position: absolute;
+	left:50%;
+	top:0;
+	margin-left:-375px; /* negative margin equal to half the width */
+	width:750px;
+
+	}
+
+	.topnav ul.navbar-nav li {
+
+	float:left;
+
+	}
+
+	.topnav ul.navbar-nav li a {
+
+	display:block;
+	text-align:center;
+	width:150px; /* fixed width */
+	color: #971765;
+	}
+
+	.topnav ul.navbar-nav li a:hover,
+	.topnav ul.navbar-nav li a:focus 
+	{
+		color: #E3DFE2;
+		background: #971765;
+
+		
+	}
+
+	hr {
+
+		border: 1px groove #cbc4c9;
+
+
+	}
 
 /* Reservation section */
+
+.reservations {
+
+	/*border: 2px solid #ccc; */
+	padding: 50px;
+	font-size: 12px;
+
+}
+
+/* Choose a date field */
+
+input[type=date]::-webkit-outer-spin-button,
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.inputReservation {
+	height: 30px;
+}
+
 
 .box {
 	border: 2px solid #ccc;
 	padding: 10px;
 	margin: 10px;
+	background: #E3DFE2;
 
 }
 
-.reserv label {
-
-	font-size: 12px;
-
+.table {
+	text-align: left;
 }
 
-/* Wrap <div> */
-.reservation {
 
-	font-size: 12px;
 
-}
 
 /* Header of Make Reservation and Existing Reservation*/
 .details_reservation_mk.reserv {
@@ -106,68 +150,75 @@ h3 {
 
 }
 
-/* table tbody tr td{
-
-	font-size: 12px;
-	margin: 0 40px 10px 40px;
-	padding: 8px;
-	border-top: 1px solid #ddd;
-} */
-
 
 /* Come Dine with Us section - Map */
-.map_class, #map{
 
-	min-height: 40vh;
-	width: 600px;
-	margin-top: 30px;
+#map{
+
+	min-height: 50vh;
+	width: 700px;
+	text-align: center;
+	display: block;
+    margin-right: auto;
+    margin-left: auto;
 
 }
 
 #main_map {
 
 	clear: both;
-	margin: 100px;
-}
+	margin: 40px 0 50px; 
+
+} 
+
 
 /*Customer review section */
 
 /*Comment box */
+
+.review {
+	/*border: 2px solid #ccc; */
+	padding: 30px;
+
+}
+
+
+
 .review #comment {
 
-	width: 700px;
+	width: 500px;
     height: 150px;
-    padding: 12px 20px;
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
     font-size: 14px;
+    margin: 20px auto;
 	
 }
 
 .review #name_reviewer {
 
-	width: 400px;
+	width: 500px;
 	border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
     resize: none;
-    font-size: 14px;
-    /* margin: 0 270px 10px 0;
-    padding: 10px; */
+    font-size: 14px;					
+    
+    
 
-}
+}  
 
 .review #reviews_answers {
 
-	width: 700px;
+	width: 900px;
 	border: 1px solid #ccc;
 	font-size: 14px;
-	/* margin: 20px 1000px 100px 50px; */
+	margin: 20px auto;
 
-}
+} 
 
 .review p {
 
@@ -176,19 +227,8 @@ h3 {
 	
 }
 
-.review, #p_reiew {
-
-	border: 1px solid #ccc;
 
 
-}
-
-/* .main_content h4 {
-
-	font-size: 20px;
-	text-align: left;
-	margin-bottom: 0;
-} */
 
 .reviewsAnswers ul {
 
@@ -197,15 +237,6 @@ h3 {
 }
 
 
-.review button {
-
-	width: 70px;
-	font-size: 12px;
-	background-color: red;
-	color: white;
-	padding: 10px;
-	margin: 10px 0 0 600px;
-}
 
 /* Label Contact Us section*/
 label {
@@ -229,12 +260,16 @@ font-size: 12px;
 	height: 200px;
 
 }
-/*
-.contact #submit{
 
-	margin-bottom: 20px;
-	background-color: #242424;
-	color: #f9fafc;
-	width: 100px;
-	height: 30px;
-} */
+.contact_format {
+
+	margin-bottom: -25px;
+	padding: 30px;
+	/* border: 2px solid #ccc; */
+
+}
+ #contact_message {
+
+ 	height:200px;
+
+ }
