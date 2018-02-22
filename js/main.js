@@ -69,7 +69,12 @@ calendar();
 			reservationData.time = $('.dropdown-menu li a.selectedLi').text();
 			reservationData.date = new Date($('#date').val());
 
-			console.log(reservationData.time);
+
+			if(!reservationData.date){
+
+				alert("Please, fill all the fields to confirm the reservation.")
+
+			} else {
 
 			//Clear the fields 
 			$('#name').val('');
@@ -86,6 +91,7 @@ calendar();
 				time: reservationData.time
 
 			});
+		} 
 
 	});
 
@@ -97,18 +103,31 @@ calendar();
 		// get data from database
 		var reservations = snapshot.val();
 
-		var test = [];
 
 		//Updating the time format from database to Dec 12 2017
 		var formatDate = reservations.date;
 		var newDate = formatDate.slice(4, 15);
 
+		// iterate (loop) through all comments coming from database call
+		/*for( var item in reservations) {
+
 		var reservationUpdated = {
+
+			name: reservations[item].name,
+			date: newDate[item],
+			time: reservations[item].time,
+			commentId: item
+		};
+
+	} */
+
+	var reservationUpdated = {
 
 			name: reservations.name,
 			date: newDate,
 			time: reservations.time
-		};
+
+		}
 
 		// get your template from your script tag
 		var source = $("#reservation-template").html();
@@ -120,33 +139,26 @@ calendar();
 		// append created templated
   		reservationList.append(reservationTemplate);
   		
-  		//test.push(reservationTemplate);
   		
-  		
-  		// remove all list items from DOM before appending table items	
-  		//$('.reservation-list').empty();
-  		// append each reservation to the list of reservation in the DOM
-  		//for(var i in test){
-  		//	$('.reservation-list').append(test[i]);
-  		//}
 
 
 	});
 
 	//Delete Reservation -- FUNCTION NOT WORKING
 
-	$('.reservation-list').on('click', '.delete', function(e) {
-
+	//$('.reservation-list').on('click', '.delete', function(e) {
+	$('.reservation-list').on('click', '.delete',  function(e) {	
 
 		// Get the ID for the comment we want to update
-		
-		var id = $(e.target).parent().data('id');
-		console.log(id);
+
+		//var id = $(e.target).parent();
+		console.log($(e.target).parent().parent().data('id'));
+
 		// find comment whose objectId is equal to the id we're searching with
-		var commentReference = database.ref('reservation/' + id)
+		//var commentReference = database.ref('reservation/' + id)
 
 		// Use remove method to remove the reservation from the database
-		commentReference.remove()
+		//commentReference.remove()
 
 	});
 
@@ -186,8 +198,13 @@ var marker = new google.maps.Marker({
 		userName = $('#name_reviewer').val();
 		userComment = $('#comment').val();
 
-		console.log(userName);
-		console.log(userComment);
+		if(userName.length == 0) {
+
+			window.alert("Please, inform your name.");
+		} else if(userComment.length == 0){
+			window.alert("Please, inform write a coment.");
+
+		} else {
 
 		// clear the user's comment from the input (for UX purposes)
 		$('#name_reviewer').val('');
@@ -201,7 +218,8 @@ var marker = new google.maps.Marker({
 			name: userName,
 			comment: userComment,
 		
-		});
+			});
+		}
 	});
 
 	// Retrieve comments data when page loads nd when comments are added/updated
@@ -234,6 +252,7 @@ var marker = new google.maps.Marker({
 				var commentListElement = template(context);
 				// push newly created element to array of comments
 				comments.push(commentListElement);
+
 			}
 
 			// remove all list items from DOM before appending list items
@@ -241,9 +260,10 @@ var marker = new google.maps.Marker({
 			// append each comment to the list of comments in the DOM
 			for(var i in comments){
 
-				$('.list_coments').append(comments[i]);
+				$('.list_coments').prepend(comments[i]);
 
 			}
+
 		});
 	}
 
@@ -263,7 +283,7 @@ var marker = new google.maps.Marker({
 
 		if(user_name.length == 0 || message.length == 0 || email.length == 0) {
 
-			window.alert("Please, enter with information in hte blank field");
+			window.alert("Please, enter with information in the blank field");
 			//$('#result').html("Please, enter with information in hte blank field");
 
 		} else {

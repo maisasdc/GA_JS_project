@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Monk's Cafe</title>
+	<title>Tom's Restaurant</title>
 
 	
 	<!-- Latest compiled and minified CSS -->
@@ -17,18 +17,6 @@
 
 </head>
 <body>
-
-	<!-- template for reservation-list -->
-	<script id="reservation-template" type="text/x-handlebars-template">
-		<tr>					
-			<td>{{name}}</td>
-			<td>{{date}}</td>
-			<td>{{time}}</td>
-			<td>
-				<i class="fa fa-trash delete"></i>
-			</td>
-		</tr>
-	</script>
 
 	<!-- Basic page structure -->
 	<div class="container">
@@ -57,14 +45,13 @@
 	<!-- Main image -->
 	
 	<div class="container">	
-		<div class="jumbotron">
+		<div class="jumbotron main-content">
 	<img class="img-responsive" src="images/toms-restaurant.jpg">
 	
 
 	<!-- Reservation Section -->
-	<a name="reservation"></a>
+<a name="reservation"></a>
 	<div class="reservations">
-		<header class="main_header">
 		<h3 class="entry_reservation">Reservations</h3>
 			<div class="row">
 				<div class="col-md-6">
@@ -92,10 +79,9 @@
 								  </ul>
 			    			</div>
 				    			
-				    			
-				    		 </div> 
+				    	</div> 
 
-			    			<button class="btn btn-default reservation-button" id="make_reservation_bt">Confirm Reservation</button>
+			    			<button class="btn btn-default reservation-button">Confirm Reservation</button>
 						</form>
 			
 						</div>
@@ -104,7 +90,7 @@
 				<div class="col-md-6">
 					<h4 class="details_reservation_ex box">Existing Reservations</h4>
 				    
-					<div class="box">
+					<div class="box table-box">
 						<table class="table table-striped container-fluid">
 							<thead>
 								<tr>
@@ -117,13 +103,24 @@
 								
 							</tbody>
 						</table>
-						<!--<button class="btn btn-default reservation-button" id="cancel_reservations">Cancel Reservation</button>-->
 					</div>
 				</div>
 			</div>	
-		</header>
-
 	</div>
+	
+
+	<!-- template for reservation-list -->
+	<script id="reservation-template" type="text/x-handlebars-template">
+		<tr data-id="{{commentId}}">					
+			<td>{{name}}</td>
+			<td>{{date}}</td>
+			<td>{{time}}</td>
+			<td>
+				<i class="fa fa-trash delete"></i>
+				
+			</td>
+		</tr>
+	</script>
 
 	<hr>	
 	
@@ -143,7 +140,7 @@
 	<hr>
 		
 	
-	<!-- Customer Review form -->
+	<!-- Customer Review Section -->
 	<a name="review"></a>
 	<div class="review">
 		<header class="main_header">
@@ -174,16 +171,21 @@
 
 	<!-- Handlebar Templates to show comments -->
 	<script id="comment-template" type="text/x-handlebars-template">
-		<li data-id="{{commentId}}">
+		<li class="list-template" data-id="{{commentId}}">
+			<div class="panel panel-default">
+			<div class="panel-heading heading-style">
 			<h4>{{name}}</h4><br>
+			</div>
+			<div class="panel-body">
 			<p>{{comment}}</p>
-
+			</div>
+		</div>
 		</li>
 	</script>
 
 	<hr>
 
-	<!-- Contact Us form -->
+	<!-- Contact Us Section -->
 	<a name="contact"></a>
 	<div class="contact_format">
 	<div class="contact" id="main_contact">
@@ -196,14 +198,18 @@
 			<input class="text" type="text" id="contact_message"><br>
 			<label>Email </label><br>
 			<input type="email" id="contact_email"><br>
-			<button type="submit" id="submit" class="btn btn-primary">Submit</button>
+			<button type="submit" id="submit" class="btn btn-primary">Send</button>
 		</form>
 		</header>
 	</div>
 </div>
 	</div>
 </div>
-
+	<footer class="main-footer">
+		<div class="footer-txt">
+          Maisa Sandrini © 2018. All rights reserved.
+              </div>	
+	</footer>
 
 	<!-- Firebase CDN -->
 	 <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>

@@ -23,12 +23,10 @@ body {
 
 /* Navbar section */
 
-.topnav {
+.topnav{
 
 	background: #E3DFE2;
-	/*box-shadow: 0px 1px 2px #2d2c2d; */
-	border: 2px groove #cbc4c9;
-	position: relative;
+	border: 1px solid #bfb6bd;
 	margin-bottom: 0;
 
 	}
@@ -73,6 +71,11 @@ body {
 
 	}
 
+	.main-content{
+
+		margin-bottom: 0;
+	}
+
 /* Reservation section */
 
 .reservations {
@@ -95,6 +98,9 @@ input[type=date]::-webkit-inner-spin-button {
 	height: 30px;
 }
 
+.reserv {
+	height: 300px;
+}
 
 .box {
 	border: 2px solid #ccc;
@@ -104,8 +110,17 @@ input[type=date]::-webkit-inner-spin-button {
 
 }
 
+.table-box {
+
+	height: 300px;
+	overflow:hidden; 
+	overflow-y:scroll;
+
+}
+
 .table {
 	text-align: left;
+		
 }
 
 
@@ -117,20 +132,28 @@ input[type=date]::-webkit-inner-spin-button {
 	margin: -15px;
 }
 
+.form_reservation {
+
+	margin: 50px auto;
+
+}
 
 #name {
 
-	padding: 6px;
 	width: 220px;
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 
 }
 
 #date {
 
 	width: 120px;
-	margin-bottom: 15px;
+	margin-bottom: 20px;
 	
+}
+
+.dropdown button {
+	margin-bottom: 10px;
 }
 
 #label {
@@ -148,6 +171,11 @@ input[type=date]::-webkit-inner-spin-button {
 	height: 30px;
 	font-size: 12px;
 
+}
+
+.delete-reserv {
+
+	cursor: pointer;
 }
 
 
@@ -213,12 +241,17 @@ input[type=date]::-webkit-inner-spin-button {
 
 .review #reviews_answers {
 
-	width: 900px;
+	width: auto;
 	border: 1px solid #ccc;
-	font-size: 14px;
-	margin: 20px auto;
+	margin-top: 20px;
 
 } 
+
+
+
+.heading-style {
+	padding-bottom: 5px;
+}
 
 .review p {
 
@@ -228,14 +261,26 @@ input[type=date]::-webkit-inner-spin-button {
 }
 
 
-
-
 .reviewsAnswers ul {
 
 	list-style-type: none;
 	padding-bottom: 5px;
+	text-align: left;
+	height: 400px;
+	overflow:hidden; 
+	overflow-y:scroll;
+	padding: 30px;
+
 }
 
+.list-template h4 {
+	color: #0b79a7;
+}
+
+.list-template p {
+	font-size: 14px;
+	padding-bottom: 50px;
+}
 
 
 /* Label Contact Us section*/
@@ -273,3 +318,24 @@ font-size: 12px;
  	height:200px;
 
  }
+
+ /* Footer */
+
+ .main-footer {
+
+ 	background: #E3DFE2;
+	border: 1px solid #bfb6bd;
+
+ }
+
+ .footer-txt{
+
+ 	text-align: center;
+ 	padding: 15px;
+ 	color: #971765;
+ 	font-size: 12px;
+
+ }
+
+
+
