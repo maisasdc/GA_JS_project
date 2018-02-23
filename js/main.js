@@ -42,16 +42,16 @@ calendar();
 
 //	$('#selected').text($(this).text());
 //});
-$('dropdown-menu li a').on('click', function(){
-
-	$('.selectedLi').removeClass('selectedLi');
-
-	$(this).addClass('selectedLi');
-
-	var selOption = $(this).text();
-	$(this).parents('.btn').find('.dropdown-toggle').html(selOption+
-    ' <span class="caret"></span>');
-});
+// $('.dropdown-menu li a').on('click', function(e){
+//   // return;
+// 	// $('.selectedLi').removeClass('selectedLi');
+//   //
+// 	// $(this).addClass('selectedLi');
+//   //
+// 	// var selOption = $(this).text();
+// 	// $(this).parents('.btn').find('.dropdown-toggle').html(selOption+
+//   //   ' <span class="caret"></span>');
+// });
 
 
 	// when clicked, the name data should be set
@@ -93,65 +93,47 @@ $('.form_reservation').on('submit', function(event) {
 });
 
 // on initial load and addition of each reservation update the view
-database.ref('reservation').on('child_added', function(snapshot){
-
+database.ref('reservation').on('value', function(snapshot){
 	//Grab element to hook
 	var reservationList = $('.reservation-list');
 	// get data from database
 	var reservations = snapshot.val();
 
-
 	//Updating the time format from database to Dec 12 2017
-	var formatDate = reservations.date;
-	var newDate = formatDate.slice(4, 15);
-
+	// var formatDate = reservations[0].date;
+  // console.log('formatDate', formatDate);
+	// var newDate = formatDate.slice(4, 15);
+  reservationList.empty();
 	// iterate (loop) through all comments coming from database call
-	/*for( var item in reservations) {
-
-	var reservationUpdated = {
-
-		name: reservations[item].name,
-		date: newDate[item],
-		time: reservations[item].time,
-		commentId: item
-	};
-
-} */
-
-var reservationUpdated = {
-
-		name: reservations.name,
-		date: newDate,
-		time: reservations.time
-
-	}
-
-	// get your template from your script tag
-	var source = $("#reservation-template").html();
-	// compile template
-  var template = Handlebars.compile(source);
-  // pass data to template to be evaluated within handlebars
-  // as the template is created
-  var reservationTemplate = template(reservationUpdated);
-// append created templated
-	reservationList.append(reservationTemplate);
+	for ( var item in reservations) {
+  	var reservationUpdated = {
+  		name: reservations[item].name,
+  		date: reservations[item].date.slice(4,15),
+  		time: reservations[item].time,
+  		commentId: item
+  	};
+    // get your template from your script tag
+    var source = $("#reservation-template").html();
+    // compile template
+    var template = Handlebars.compile(source);
+    // pass data to template to be evaluated within handlebars
+    // as the template is created
+    var reservationTemplate = template(reservationUpdated);
+  // append created templated
+    reservationList.append(reservationTemplate);
+  }
 });
 
-//Delete Reservation -- FUNCTION NOT WORKING
+//Delete Reservation
 
-//$('.reservation-list').on('click', '.delete', function(e) {
 $('.reservation-list').on('click', '.delete',  function(e) {
-
 	// Get the ID for the comment we want to update
-
-	//var id = $(e.target).parent();
-	console.log($(e.target).parent().parent().data('id'));
-
+	var id = $(e.target).parent().parent().data('id');
 	// find comment whose objectId is equal to the id we're searching with
-	//var commentReference = database.ref('reservation/' + id)
+	var commentReference = database.ref('reservation/' + id);
 
 	// Use remove method to remove the reservation from the database
-	//commentReference.remove()
+	commentReference.remove();
 
 });
 
