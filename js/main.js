@@ -1,313 +1,284 @@
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyA4OTCs6PEmVgEmtqYlSUD5j9Teh--8TWs",
-    authDomain: "restaurant-site-81511.firebaseapp.com",
-    databaseURL: "https://restaurant-site-81511.firebaseio.com",
-    projectId: "restaurant-site-81511",
-    storageBucket: "restaurant-site-81511.appspot.com",
-    messagingSenderId: "168003809387"
-  };
-  firebase.initializeApp(config);
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyA4OTCs6PEmVgEmtqYlSUD5j9Teh--8TWs",
+  authDomain: "restaurant-site-81511.firebaseapp.com",
+  databaseURL: "https://restaurant-site-81511.firebaseio.com",
+  projectId: "restaurant-site-81511",
+  storageBucket: "restaurant-site-81511.appspot.com",
+  messagingSenderId: "168003809387"
+};
+firebase.initializeApp(config);
 
-  //Connect with database
-  var database = firebase.database();
+//Connect with database
+var database = firebase.database();
 
 
-//RESERVATION 
+//RESERVATION
 //Make Reservation
-	
-	var reservationData = {};
-	
-	//User is not able to select the day before today
-	function calendar(){
 
-	
-	var date = document.getElementById('date');
+var reservationData = {};
 
-	if(!date) {
-		return;
-	}
+//User is not able to select the day before today
+function calendar(){
 
-	var today = new Date().toISOString().split('T')[0];
 
-	//return today;
-	date.setAttribute('min', today);
+  var date = document.getElementById('date');
+
+  if(!date) {
+  	return;
+  }
+
+  var today = new Date().toISOString().split('T')[0];
+
+  //return today;
+  date.setAttribute('min', today);
 
 }
 
 calendar();
 
-	//Select Reservation time
-	//$('.dropdown-menu a').on('click', function() {
+//Select Reservation time
+//$('.dropdown-menu a').on('click', function() {
 
-	//	$('#selected').text($(this).text());
-	//});
-	$('dropdown-menu li a').on('click', function(){
-
-		$('.selectedLi').removeClass('selectedLi');
-
-		$(this).addClass('selectedLi');
-
-		var selOption = $(this).text();
-		$(this).parents('.btn').find('.dropdown-toggle').html(selOption+
-      ' <span class="caret"></span>');
-	})
+//	$('#selected').text($(this).text());
+//});
+// $('.dropdown-menu li a').on('click', function(e){
+//   // return;
+// 	// $('.selectedLi').removeClass('selectedLi');
+//   //
+// 	// $(this).addClass('selectedLi');
+//   //
+// 	// var selOption = $(this).text();
+// 	// $(this).parents('.btn').find('.dropdown-toggle').html(selOption+
+//   //   ' <span class="caret"></span>');
+// });
 
 
 	// when clicked, the name data should be set
-	// and all data should be sent to your database 
+	// and all data should be sent to your database
 
-	$('.form_reservation').on('submit', function(event) {
+$('.form_reservation').on('submit', function(event) {
+//prevent the page to reload
+	event.preventDefault();
 
-
-			//prevent the page to reload
-			event.preventDefault();
-
-			//get name from input
-			reservationData.name = $('#name').val();
-			//reservationData.time = $('#time option:selected').text();
-			reservationData.time = $('.dropdown-menu li a.selectedLi').text();
-			reservationData.date = new Date($('#date').val());
+	//get name from input
+	reservationData.name = $('#name').val();
+	//reservationData.time = $('#time option:selected').text();
+	reservationData.time = $('.dropdown-menu li a.selectedLi').text();
+	reservationData.date = new Date($('#date').val());
 
 
-			if(!reservationData.date){
+	if(!reservationData.date){
 
-				alert("Please, fill all the fields to confirm the reservation.")
+		alert("Please, fill all the fields to confirm the reservation.")
 
-			} else {
+	} else {
 
-			//Clear the fields 
-			$('#name').val('');
-			$('#date').val('');
-			$('#time').val('');
-			//$('.reservation-time option').val('');time
+		//Clear the fields
+		$('#name').val('');
+		$('#date').val('');
+		$('#time').val('');
+		//$('.reservation-time option').val('');time
 
-			var reservationReference = database.ref('reservation');
+		var reservationReference = database.ref('reservation');
 
-			reservationReference.push({
+		reservationReference.push({
 
-				name: reservationData.name,
-				date: reservationData.date.toString(),
-				time: reservationData.time
+			name: reservationData.name,
+			date: reservationData.date.toString(),
+			time: reservationData.time
 
-			});
-		} 
+		});
+	}
+});
 
-	});
+// on initial load and addition of each reservation update the view
+database.ref('reservation').on('value', function(snapshot){
+	//Grab element to hook
+	var reservationList = $('.reservation-list');
+	// get data from database
+	var reservations = snapshot.val();
 
-	// on initial load and addition of each reservation update the view
-	database.ref('reservation').on('child_added', function(snapshot){
+	//Updating the time format from database to Dec 12 2017
+	// var formatDate = reservations[0].date;
+  // console.log('formatDate', formatDate);
+	// var newDate = formatDate.slice(4, 15);
+  reservationList.empty();
+	// iterate (loop) through all comments coming from database call
+	for ( var item in reservations) {
+  	var reservationUpdated = {
+  		name: reservations[item].name,
+  		date: reservations[item].date.slice(4,15),
+  		time: reservations[item].time,
+  		commentId: item
+  	};
+    // get your template from your script tag
+    var source = $("#reservation-template").html();
+    // compile template
+    var template = Handlebars.compile(source);
+    // pass data to template to be evaluated within handlebars
+    // as the template is created
+    var reservationTemplate = template(reservationUpdated);
+  // append created templated
+    reservationList.append(reservationTemplate);
+  }
+});
 
-		//Grab element to hook 
-		var reservationList = $('.reservation-list');
-		// get data from database
-		var reservations = snapshot.val();
+//Delete Reservation
 
+$('.reservation-list').on('click', '.delete',  function(e) {
+	// Get the ID for the comment we want to update
+	var id = $(e.target).parent().parent().data('id');
+	// find comment whose objectId is equal to the id we're searching with
+	var commentReference = database.ref('reservation/' + id);
 
-		//Updating the time format from database to Dec 12 2017
-		var formatDate = reservations.date;
-		var newDate = formatDate.slice(4, 15);
+	// Use remove method to remove the reservation from the database
+	commentReference.remove();
 
-		// iterate (loop) through all comments coming from database call
-		/*for( var item in reservations) {
-
-		var reservationUpdated = {
-
-			name: reservations[item].name,
-			date: newDate[item],
-			time: reservations[item].time,
-			commentId: item
-		};
-
-	} */
-
-	var reservationUpdated = {
-
-			name: reservations.name,
-			date: newDate,
-			time: reservations.time
-
-		}
-
-		// get your template from your script tag
-		var source = $("#reservation-template").html();
-		// compile template
-	    var template = Handlebars.compile(source);
-	    // pass data to template to be evaluated within handlebars
-	    // as the template is created
-	    var reservationTemplate = template(reservationUpdated);
-		// append created templated
-  		reservationList.append(reservationTemplate);
-  		
-  		
-
-
-	});
-
-	//Delete Reservation -- FUNCTION NOT WORKING
-
-	//$('.reservation-list').on('click', '.delete', function(e) {
-	$('.reservation-list').on('click', '.delete',  function(e) {	
-
-		// Get the ID for the comment we want to update
-
-		//var id = $(e.target).parent();
-		console.log($(e.target).parent().parent().data('id'));
-
-		// find comment whose objectId is equal to the id we're searching with
-		//var commentReference = database.ref('reservation/' + id)
-
-		// Use remove method to remove the reservation from the database
-		//commentReference.remove()
-
-	});
+});
 
 
 
 
-// COME DINE WITH US 
+// COME DINE WITH US
 
-//Initialize Map 
+//Initialize Map
 
 function initMap(){
 
-// create a new instance of a map
-    // configure map with options object
- var map = new google.maps.Map(document.getElementById('map'), {
+  // create a new instance of a map
+  // configure map with options object
+  var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 40.8054491, lng: -73.9654415},
       zoom: 15,
       scrollwheel: false
     });
 
-var marker = new google.maps.Marker({
-	position: map.center,
-	map: map
+  var marker = new google.maps.Marker({
+    position: map.center,
+    map: map
+  });
+}
+
+// CUSTOMER REVIEW
+
+//List Customer Review and keep them in the database
+$('#customerReview').on('submit', function(event) {
+
+	//Prevent the DOM realod the page
+	event.preventDefault();
+
+	//Grab user name and comment
+	userName = $('#name_reviewer').val();
+	userComment = $('#comment').val();
+
+	if(userName.length == 0) {
+
+		window.alert("Please, inform your name.");
+	} else if(userComment.length == 0){
+		window.alert("Please, inform write a coment.");
+
+	} else {
+
+  	// clear the user's comment from the input (for UX purposes)
+  	$('#name_reviewer').val('');
+  	$('#comment').val('');
+
+  	//Create a section for comments in database
+  	var commentsReference = database.ref('comments');
+
+  	//save data to the comments
+  	commentsReference.push({
+  		name: userName,
+  		comment: userComment,
+
+		});
+	}
 });
 
-	}
+// Retrieve comments data when page loads nd when comments are added/updated
 
-	// CUSTOMER REVIEW
+function getComments(){
 
-	//List Customer Review and keep them in the database
-	$('#customerReview').on('submit', function(event) {
+	database.ref('comments').on('value', function(results){
 
-		//Prevent the DOM realod the page
-		event.preventDefault();
+		// Get all comments stored in the results we received back from Firebase
+		var allComments = results.val();
+		//Set an array
+		var comments = [];
+		// Loop to iterate through all comments coming from database call
+		for(var item in allComments){
 
-		//Grab user name and comment
-		userName = $('#name_reviewer').val();
-		userComment = $('#comment').val();
+			// Create an object literal with the data we'll pass to Handlebars
+			var context = {
 
-		if(userName.length == 0) {
+				name: allComments[item].name,
+				comment: allComments[item].comment,
+				commentId: item
+			};
 
-			window.alert("Please, inform your name.");
-		} else if(userComment.length == 0){
-			window.alert("Please, inform write a coment.");
+			// Get the HTML from our Handlebars comment template
 
-		} else {
-
-		// clear the user's comment from the input (for UX purposes)
-		$('#name_reviewer').val('');
-		$('#comment').val('');
-
-		//Create a section for comments in database
-		var commentsReference = database.ref('comments');
-
-		//save data to the comments
-		commentsReference.push({
-			name: userName,
-			comment: userComment,
-		
-			});
-		}
-	});
-
-	// Retrieve comments data when page loads nd when comments are added/updated
-
-	function getComments(){
-
-		database.ref('comments').on('value', function(results){
-
-			// Get all comments stored in the results we received back from Firebase
-			var allComments = results.val();
-			//Set an array 
-			var comments = [];
-			// Loop to iterate through all comments coming from database call
-			for(var item in allComments){
-
-				// Create an object literal with the data we'll pass to Handlebars
-				var context = {
-
-					name: allComments[item].name,
-					comment: allComments[item].comment,
-					commentId: item
-				};
-
-				// Get the HTML from our Handlebars comment template
-
-				var source = $('#comment-template').html();
-				// Compile Handlebar template
-				var template = Handlebars.compile(source);
-				// Pass the data for this comment (context) into the template
-				var commentListElement = template(context);
-				// push newly created element to array of comments
-				comments.push(commentListElement);
-
-			}
-
-			// remove all list items from DOM before appending list items
-			$('.list_coments').empty();
-			// append each comment to the list of comments in the DOM
-			for(var i in comments){
-
-				$('.list_coments').prepend(comments[i]);
-
-			}
-
-		});
-	}
-
-	//When page loads, get comments
-
-	getComments();
-
-	// CONTACT US Section
-		$('#contact_form').on('submit', function(e){
-
-		e.preventDefault();
-
-		// Get data from Contact Us form
-		user_name = $('#contact_name').val();
-		message = $('#contact_message').val();
-		email = $('#contact_email').val();
-
-		if(user_name.length == 0 || message.length == 0 || email.length == 0) {
-
-			window.alert("Please, enter with information in the blank field");
-			//$('#result').html("Please, enter with information in hte blank field");
-
-		} else {
-
-		// Clear inputs
-		$('#contact_name').val('');
-		$('#contact_message').val('');
-		$('#contact_email').val('');
-
-
-		window.confirm("Thanks for contacting us " + user_name + ". We will reply your request in 3 work days.");
-
-		//Create a section for user data in database
-		var contactReference = database.ref('contact_form');
-
-		//save data to the contact form
-		contactReference.push({
-
-			name: user_name,
-			message: message,
-			userEmail: email
-		});
+			var source = $('#comment-template').html();
+			// Compile Handlebar template
+			var template = Handlebars.compile(source);
+			// Pass the data for this comment (context) into the template
+			var commentListElement = template(context);
+			// push newly created element to array of comments
+			comments.push(commentListElement);
 
 		}
+
+		// remove all list items from DOM before appending list items
+		$('.list_coments').empty();
+		// append each comment to the list of comments in the DOM
+		for(var i in comments){
+
+			$('.list_coments').prepend(comments[i]);
+
+		}
+
 	});
+}
+
+//When page loads, get comments
+
+getComments();
+
+// CONTACT US Section
+	$('#contact_form').on('submit', function(e){
+
+	e.preventDefault();
+
+	// Get data from Contact Us form
+	user_name = $('#contact_name').val();
+	message = $('#contact_message').val();
+	email = $('#contact_email').val();
+
+	if(user_name.length == 0 || message.length == 0 || email.length == 0) {
+
+		window.alert("Please, enter with information in the blank field");
+		//$('#result').html("Please, enter with information in hte blank field");
+
+	} else {
+
+  	// Clear inputs
+  	$('#contact_name').val('');
+  	$('#contact_message').val('');
+  	$('#contact_email').val('');
 
 
+  	window.confirm("Thanks for contacting us " + user_name + ". We will reply your request in 3 work days.");
+
+  	//Create a section for user data in database
+  	var contactReference = database.ref('contact_form');
+
+  	//save data to the contact form
+  	contactReference.push({
+
+  		name: user_name,
+  		message: message,
+  		userEmail: email
+  	});
+	}
+});
