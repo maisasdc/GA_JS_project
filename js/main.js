@@ -12,6 +12,7 @@ firebase.initializeApp(config);
 //Connect with database
 var database = firebase.database();
 
+var today = new Date();
 
 //RESERVATION
 //Make Reservation
@@ -51,14 +52,14 @@ $('.form_reservation').on('submit', function(event) {
 	reservationData.time = $('#time-list :selected').text();
 
 	//Validate all fields
-	if( (!reservationData.name) && 
-		(isNaN(reservationData.date) == true) && 
+	if( (!reservationData.name) &&
+		(isNaN(reservationData.date) == true) &&
 		($('#time-list')[0].selectedIndex == "") ){
-		
+
 
 		alert("Please, fill all the fields to confirm the reservation.")
 
-	} else { 
+	} else {
 
 		//Clear the fields
 		$('#name').val('');
@@ -73,12 +74,12 @@ $('.form_reservation').on('submit', function(event) {
 			date: reservationData.date,
 			time: reservationData.time
 
-		}); 
+		});
 	}
 });
 
 // on initial load and addition of each reservation update the view
-	database.ref('reservation').on('value', function(snapshot){
+database.ref('reservation').on('value', function(snapshot){
 	//Grab element to hook
 	var reservationList = $('.reservation-list');
 	// get data from database
@@ -87,23 +88,27 @@ $('.form_reservation').on('submit', function(event) {
     reservationList.empty();
 	// iterate (loop) through all comments coming from database call
 	for ( var item in reservations) {
-  	
 
-  	var reservationUpdated = {
-  		name: reservations[item].name,
-  		date: reservations[item].date.slice(4,15),
-  		time: reservations[item].time,
-  		commentId: item
-  	};
-    // get your template from your script tag
-    var source = $("#reservation-template").html();
-    // compile template
-    var template = Handlebars.compile(source);
-    // pass data to template to be evaluated within handlebars
-    // as the template is created
-    var reservationTemplate = template(reservationUpdated);
-  // prepend created templated
-    reservationList.prepend(reservationTemplate);
+    var reservationDate = new Date(reservations[item].date);
+
+    if (reservationDate.getTime() >= today.getTime()) {
+
+    	var reservationUpdated = {
+    		name: reservations[item].name,
+    		date: reservations[item].date.slice(4,15),
+    		time: reservations[item].time,
+    		commentId: item
+    	};
+      // get your template from your script tag
+      var source = $("#reservation-template").html();
+      // compile template
+      var template = Handlebars.compile(source);
+      // pass data to template to be evaluated within handlebars
+      // as the template is created
+      var reservationTemplate = template(reservationUpdated);
+    // prepend created templated
+      reservationList.prepend(reservationTemplate);
+    }
   }
 });
 
