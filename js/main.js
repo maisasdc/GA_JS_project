@@ -37,22 +37,6 @@ function calendar(){
 
 calendar();
 
-//Select Reservation time
-//$('.dropdown-menu a').on('click', function() {
-
-//	$('#selected').text($(this).text());
-//});
-// $('.dropdown-menu li a').on('click', function(e){
-//   // return;
-// 	// $('.selectedLi').removeClass('selectedLi');
-//   //
-// 	// $(this).addClass('selectedLi');
-//   //
-// 	// var selOption = $(this).text();
-// 	// $(this).parents('.btn').find('.dropdown-toggle').html(selOption+
-//   //   ' <span class="caret"></span>');
-// });
-
 
 	// when clicked, the name data should be set
 	// and all data should be sent to your database
@@ -63,49 +47,48 @@ $('.form_reservation').on('submit', function(event) {
 
 	//get name from input
 	reservationData.name = $('#name').val();
-	//reservationData.time = $('#time option:selected').text();
-	reservationData.time = $('.dropdown-menu li a.selectedLi').text();
-	reservationData.date = new Date($('#date').val());
+	reservationData.date = new Date($('#date').val()).toString();
+	reservationData.time = $('#time-list :selected').text();
 
-
-	if(!reservationData.date){
+	//Validate all fields
+	if( (!reservationData.name) && 
+		(isNaN(reservationData.date) == true) && 
+		($('#time-list')[0].selectedIndex == "") ){
+		
 
 		alert("Please, fill all the fields to confirm the reservation.")
 
-	} else {
+	} else { 
 
 		//Clear the fields
 		$('#name').val('');
 		$('#date').val('');
-		$('#time').val('');
-		//$('.reservation-time option').val('');time
+		$('#time-list').val('');
 
 		var reservationReference = database.ref('reservation');
 
 		reservationReference.push({
 
 			name: reservationData.name,
-			date: reservationData.date.toString(),
+			date: reservationData.date,
 			time: reservationData.time
 
-		});
+		}); 
 	}
 });
 
 // on initial load and addition of each reservation update the view
-database.ref('reservation').on('value', function(snapshot){
+	database.ref('reservation').on('value', function(snapshot){
 	//Grab element to hook
 	var reservationList = $('.reservation-list');
 	// get data from database
 	var reservations = snapshot.val();
 
-	//Updating the time format from database to Dec 12 2017
-	// var formatDate = reservations[0].date;
-  // console.log('formatDate', formatDate);
-	// var newDate = formatDate.slice(4, 15);
-  reservationList.empty();
+    reservationList.empty();
 	// iterate (loop) through all comments coming from database call
 	for ( var item in reservations) {
+  	
+
   	var reservationUpdated = {
   		name: reservations[item].name,
   		date: reservations[item].date.slice(4,15),
@@ -119,8 +102,8 @@ database.ref('reservation').on('value', function(snapshot){
     // pass data to template to be evaluated within handlebars
     // as the template is created
     var reservationTemplate = template(reservationUpdated);
-  // append created templated
-    reservationList.append(reservationTemplate);
+  // prepend created templated
+    reservationList.prepend(reservationTemplate);
   }
 });
 

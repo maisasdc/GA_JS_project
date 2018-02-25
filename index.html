@@ -65,21 +65,19 @@
 			    		<label class="labelReservation">Choose a date: </label>
 			    			<input id="date" type="date" class="inputReservation"><br>
 			    		</div>
-			    		<div class="form-group">
-			    			<div class="dropdown">
-			    				<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">Choose time
-			    					<span class="caret"></span></button>
-			    					<ul class="dropdown-menu dropdown-menu-right reservation-time" id="time">
-								    <li><a href="#" class="selectedLi">5:00PM</a></li>
-								    <li><a href="#">6:00PM</a></li>
-								    <li><a href="#">7:00PM</a></li>
-								    <li><a href="#">8:00PM</a></li>
-								    <li><a href="#">9:00PM</a></li>
-								    <li><a href="#">9:30PM</a></li>
-								  </ul>
-			    			</div>
-
-				    	</div>
+			    		
+			    			<div class="time-reservation">
+			    			<select size="1" id="time-list" name="time">
+			    				<option value=""> -Select Time To Dine- </option>
+			    				<option value='1'>5:00PM</option>
+			    				<option value='1'>6:00PM</option>
+			    				<option value='1'>7:00PM</option>
+			    				<option value='1'>8:00PM</option>
+			    				<option value='1'>9:00PM</option>
+			    				<option value='1'>10:00PM</option>
+			    			</select>
+			    		</div>
+				    	
 
 			    			<button class="btn btn-default reservation-button">Confirm Reservation</button>
 						</form>

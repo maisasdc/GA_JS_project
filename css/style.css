@@ -152,8 +152,8 @@ input[type=date]::-webkit-inner-spin-button {
 
 }
 
-.dropdown button {
-	margin-bottom: 10px;
+.time-reservation {
+	margin-bottom: 20px;
 }
 
 #label {
@@ -197,6 +197,14 @@ input[type=date]::-webkit-inner-spin-button {
 	clear: both;
 	margin: 40px 0 50px;
 
+}
+
+@media(max-width: 767px){
+
+	#map {
+
+	width: 400px;
+	}
 }
 
 
@@ -280,6 +288,17 @@ input[type=date]::-webkit-inner-spin-button {
 .list-template p {
 	font-size: 14px;
 	padding-bottom: 50px;
+}
+
+@media(max-width: 767px){
+
+	.review #name_reviewer,
+	 .review #comment {
+
+		width: 300px;
+
+	}
+
 }
 
 
